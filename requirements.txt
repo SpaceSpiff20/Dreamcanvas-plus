@@ -1,0 +1,8 @@
+streamlit
+google-generativeai
+transformers
+torch
+Pillow
+moviepy
+colorthief
+requests
