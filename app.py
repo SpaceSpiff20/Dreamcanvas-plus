@@ -6,7 +6,7 @@ import os
 from utils.caption import get_caption
 from utils.emotion import get_dominant_color, infer_emotion_from_color
 from utils.gemini_story import generate_story
-from utils.elevenlabs_voice import elevenlabs_tts
+from utils.tts_wrapper import tts_convert
 from utils.video_generator import generate_final_video
 from utils.auto_description import auto_generate_description
 
@@ -44,10 +44,15 @@ if uploaded:
                 st.text_area("📖 Story", story, height=150)
 
             with st.spinner("🎤 Generating voice..."):
-                # Replace with your ElevenLabs voice ID and API key
-                voice_id = "EXAVITQu4vr4xnSDxMaL"
-                api_key = "sk_4c430c0ea81f5b5ba2ca266dd0ede00338860ba241ca7f96"  
-                audio_path = elevenlabs_tts(story, voice_id, api_key)
+                # Use Speechify TTS with default voice
+                voice_id = "scott"  # Default Speechify voice
+                audio_path = tts_convert(
+                    text=story,
+                    voice_id=voice_id,
+                    provider="speechify",
+                    language="en-US",
+                    model="simba-english"
+                )
                 st.audio(audio_path)
 
             with st.spinner("🎞️ Generating video..."):
